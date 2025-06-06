@@ -1,0 +1,45 @@
+version: '3'
+
+dotenv: ['.env']
+
+tasks:
+  setup:
+    cmds:
+      - task: install_k3d
+      - task: create_cluster
+      - task: verify_cluster
+      - task: switch_context
+      - task: print_setup_complete
+
+  install_k3d:
+    cmds:
+      - wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+    desc: Install k3d
+
+  create_cluster:
+    cmds:
+      - unset KUBECONFIG; k3d cluster create -i rancher/k3s:v1.30.0-rc1-k3s1 -s 3 ch10-crossplane-rk
+    desc: Create Kubernetes cluster with k3d
+
+  verify_cluster:
+    cmds:
+      - echo "Verifying k3d cluster status..."
+      - until k3d cluster list | grep -q '3/3'; do
+          k3d cluster list;
+          sleep 3;
+        done
+      - echo "Cluster is up and running:"
+      - k3d cluster list
+      - echo "Press any key to continue..."
+      - read
+    desc: Verify k3d cluster is running
+
+  switch_context:
+    cmds:
+      - kubectl config use-context k3d-ch10-crossplane-rk
+    desc: Switch context to k3d-ch10-crossplane-rk
+
+  print_setup_complete:
+    cmds:
+      - echo "Local Kubernetes server is set up. Author - Georgi Lazarov."
+    desc: Print setup completion message
