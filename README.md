@@ -15,7 +15,7 @@ This guide will walk you through setting up a local Kubernetes cluster with K3d 
 
 ## Run the Setup
 
-Run the setup task to create and configure the local Kubernetes cluster:
+Navigate to **k3d-cluster-setup** and run the setup task to create and configure the local Kubernetes cluster:
     ```sh
     task setup
     ```
