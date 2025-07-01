@@ -64,3 +64,8 @@ tasks:
       - kubectl -n argocd patch deployment argocd-server --type='json' -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--insecure"}]'
       - echo "You may access ArgoCD via https://argocd.localhost:8085"
     desc: Install ArgoCD via Helm
+
+  create_argocd_app:
+    cmds:
+      - kubectl apply -f argo-app.yaml
+    desc: Create argocd application

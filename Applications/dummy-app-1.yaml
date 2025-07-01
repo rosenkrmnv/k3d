@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dummy-app-1
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rosenkrmnv/k3d.git
+    targetRevision: HEAD
+    path: Applications/dummy-app-1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dummy-app-1-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
