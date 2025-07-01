@@ -4,10 +4,10 @@ This guide will walk you through setting up a local Kubernetes cluster with K3d 
 
 ---
 
-## Prerequisites (Ubuntu 24.*)
+## Install (Ubuntu 24.*)
 
 ```sh
-./prerequisites.sh
+./install.sh
 
 ```
 
