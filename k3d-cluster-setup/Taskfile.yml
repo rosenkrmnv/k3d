@@ -12,6 +12,7 @@ tasks:
       - task: print_setup_complete
       - task: install_kubectl
       - task: install_argocd
+      - task: create_argocd_app
 
   install_k3d:
     cmds:
