@@ -71,7 +71,7 @@ fi
 # -------------------------
 if ! command_exists task; then
   echo "Task not found. Installing Task..."
-  sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin/
+  sudo sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin/
   echo "Task installed successfully."
 else
   echo "Task is already installed. Skipping..."
@@ -85,11 +85,12 @@ if command_exists k3d; then
   if [ "$(k3d cluster list | wc -l)" -le 1 ]; then
     echo "No k3d clusters found. Running 'task install'..."
     cd k3d-cluster-setup
-    task install
+    task setup
   else
     echo "k3d cluster(s) already exist. Skipping 'task install'."
   fi
 else
-  echo "k3d is not installed. Skipping k3d cluster check and 'task install'."
+  echo "k3d not installed, running 'task install'..."
+  cd k3d-cluster-setup
+  task setup
 fi
-
